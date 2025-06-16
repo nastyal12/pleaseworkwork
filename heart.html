@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>진혁 바보 hoho</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: #ff2e63;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff2e63aa;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        .heart-container {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        svg {
+            width: 200px;
+            height: 200px;
+        }
+        
+        path {
+            stroke: #1d7ee5;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawHeart 2s ease forwards;
+        }
+        
+        @keyframes drawHeart {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        /* Мигание после завершения */
+        
+        .pulse {
+            animation: pulseHeart 1s ease-in-out infinite;
+        }
+        
+        @keyframes pulseHeart {
+            0%,
+            100% {
+                stroke: #ff2e63;
+                stroke-width: 4;
+                opacity: 1;
+            }
+            50% {
+                stroke: #ff99aa;
+                stroke-width: 5;
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="showHeart()">👉 이진혁 바보 클릭해줘</button>
+
+    <div class="heart-container" id="heart">
+        <svg viewBox="0 0 41 29.6" xmlns="http://www.w3.org/2000/svg">
+  <path id="heartPath" fill="none" stroke="red" stroke-width="2" transform="translate(5,0)"
+        d="M23.6,0c-3.4,0-6.4,2.2-7.6,5.3C14.8,2.2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.3,16,21.2,16,21.2S32,17.7,32,8.4
+    C32,3.8,28.2,0,23.6,0z"/>
+</svg>
+
+        <p style="text-align:center; font-size: 24px; margin-top:10px;">메로오오오오롱</p>
+    </div>
+
+    <script>
+        function showHeart() {
+            const heart = document.getElementById('heart');
+            const path = document.getElementById('heartPath');
+            const length = path.getTotalLength();
+
+            // Настройка dash
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+
+            heart.style.display = 'block';
+
+            // Перезапускаем анимацию рисования
+            path.classList.remove('pulse');
+            path.style.animation = 'none';
+            void path.offsetWidth;
+            path.style.animation = 'drawHeart 2s ease forwards';
+
+            // После окончания рисования добавить мигание
+            setTimeout(() => {
+                path.classList.add('pulse');
+            }, 2000); // 2 секунды = длительность drawHeart
+        }
+    </script>
+
+</body>
+
+</html>
